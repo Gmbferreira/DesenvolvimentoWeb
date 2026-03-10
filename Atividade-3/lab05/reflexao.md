@@ -21,3 +21,8 @@ xmlrpc.client.Fault é uma classe de exceção específica que encapsula erros o
 O Fault é um erro genérico. Ele perde o tipo original do erro e também, ele não possui o stack trace completo do servidor, fornecendo apenas o que foi explicitamente enviado via rede.
 O RPC precisa de um mecanismo especial, porque erros são objetos complexos de memória que não podem ser fisicamente enviados pela rede. O RPC precisa de um padrão (o XML) para serializar a falha de forma que qualquer linguagem entenda que algo deu errado, permitindo que o cliente trate o problema em vez de simplesmente travar a conexão.
 
+### 1.3
+O system.listMethods() relaciona-se mais diretamente à Transparência de Acesso. Isso acontece porque esta transparência oculta as diferenças na representação de dados e nos mecanismos de invocação. O recurso permite que o cliente descubra os metodos que existem, a interface do serviço de forma padronizada, sem precisar conhecer como as funções foram implementadas ou organizadas internamente no servidor.
+
+## Questão 2.
+###2.1
