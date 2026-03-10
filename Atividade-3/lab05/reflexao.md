@@ -34,3 +34,13 @@ Dispatching: linha 36
 O JSON aumenta a latência e o consumo de banda por ser um formato textual redundante, além de que seu processamento consome muito mais cpu, enquanto o Protobuf é binário e extremamente compacto. Em larga escala, isso significa em custos maiores de infraestrutura e uma capacidade reduzida de processar requisições simultâneas.
 ### 2.3
 Isso acontece porque o tcp é orientado a fluxo(byte stream). Sem o framing, o receptor não saberia onde termina uma chamada e começa a próxima, juntando ou desorganizando os dados.
+
+## Questão 3.
+### 3.1
+O 201 Created comunica a criação de um novo recurso de forma explicita, permitindo que intermediários e proxies invalidem caches de colections desatualizadas. Ele indica uma mudança permanente no estado do servidor que o código 200 OK não descreve com a mesma precisão semântica.
+
+### 3.2
+Para ser realmente stateless, o estado dos recursos deve ser movido da memória volátil do servidor para uma camada de persistência externa, como um banco de dados SQL. Isso garante que o servidor não guarde contexto local, permitindo que qualquer instância processe qualquer requisição de forma independente.
+
+### 3.3
+A abordagem usada para  requests.post("/calculos", json={...}) deixa mais claro o contato entre cliente e servidor que proxy.calcular("soma", 7, 3). Isso acontece porque no RPC, o contrato é implícito e depende de nomes de funções arbitrários que ocultam a natureza da comunicação. No REST, a semântica é universal, sendo o uso de métodos padrão e códigos de estado, como 201 ou 404, o que torna a interação autodescritiva e independente da implementação interna do servidor.
