@@ -25,4 +25,12 @@ O RPC precisa de um mecanismo especial, porque erros são objetos complexos de m
 O system.listMethods() relaciona-se mais diretamente à Transparência de Acesso. Isso acontece porque esta transparência oculta as diferenças na representação de dados e nos mecanismos de invocação. O recurso permite que o cliente descubra os metodos que existem, a interface do serviço de forma padronizada, sem precisar conhecer como as funções foram implementadas ou organizadas internamente no servidor.
 
 ## Questão 2.
-###2.1
+### 2.1
+Marshalling: linhas 71 e 37
+Transmissão: linhas 75 e 41
+Unmarshalling: linhas 29 e 78
+Dispatching: linha 36
+### 2.2
+O JSON aumenta a latência e o consumo de banda por ser um formato textual redundante, além de que seu processamento consome muito mais cpu, enquanto o Protobuf é binário e extremamente compacto. Em larga escala, isso significa em custos maiores de infraestrutura e uma capacidade reduzida de processar requisições simultâneas.
+### 2.3
+Isso acontece porque o tcp é orientado a fluxo(byte stream). Sem o framing, o receptor não saberia onde termina uma chamada e começa a próxima, juntando ou desorganizando os dados.
