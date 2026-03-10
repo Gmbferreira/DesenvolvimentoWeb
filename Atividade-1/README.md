@@ -1,0 +1,7 @@
+[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/FIuNNNdh)
+[![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-2e0aaae1b6195c2367325f4f02e2d04e9abb55f0b24a779b69b11b9e10269abc.svg)](https://classroom.github.com/online_ide?assignment_repo_id=22829071&assignment_repo_type=AssignmentRepo)
+## Resposta questão 1:
+O server.py libera o backlog instantaneamente ao delegar o trabalho para threads, mantendo o accept() sempre disponível. No servergargalo.py, o sleep de 5s bloqueia o fluxo principal, causando overflow. Isso força o SO a recusar novas conexões ou ignorar pacotes, causando ConnectionRefused ou Timeout no cliente.
+## Resposta questão 2:
+No server.py, o  o SO cria uma thread por cliente, gerando um consumo de memória linear para pilhas e alto uso de CPU causado por constante context switching. Já na abordagem assíncrona, o número de threads permanece constante (apenas 1), pois o Event Loop gerencia as conexões como eventos leves em nível de usuário. Enquanto o modelo multithread desperdiça recursos mantendo as threads apenas para esperar o time.sleep(), o modelo assíncrono economiza RAM e processamento, permitindo que um único fluxo de execução suporte milhares de clientes simultâneos sem sobrecarregar o Kernel.
+![Imagem comprovando](acessos.png)
