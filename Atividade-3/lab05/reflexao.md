@@ -55,3 +55,17 @@ São equivalentes. O gRPC é semanticamente mais rico, possuindo 16 status espec
 ### 4.3
 O xml.client.Fault limita-se a um par básico de texto (code/string), exigindo análise manual de strings para entender erros complexos. O grpc.RpcError oferece códigos de status específicos e metadados binários tipados que o cliente processa programaticamente. 
 Isso faz com que o grpc.Error provenha mais informações.
+
+## Questão 5.
+### 5.1
+Em microserviços internos, a tipagem forte é uma vantagem porque permite que diferentes times compartilhem contratos rígidos, garantindo que mudanças no servidor não quebrem os clientes. Isso também permite a detecção de erros em tempo de execução.
+Em em APIs públicas, ela se torna uma barreira por exigir que desenvolvedores externos baixem ferramentas específicas e gerem código apenas para consumir a API.
+
+### 5.2
+O REST foca no recurso, onde a URL identifica um objeto e o verbo HTTP define o que fazer com ele. O RPC foca na ação, onde o cliente invoca uma função remota como se fosse um método local.
+O exemplo de cancelar o pedido, no RPC seria algo como: cancelarPedido(id=xxxx) 
+enquanto no REST seria algo como: PATCH /pedidos/xxxx com o corpo {"status": "cancelado"}
+
+As implicações do RPC se dão no foco direto no comportamento: a intenção da operação é explícita pelo nome da função (como cancelarPedido), o que torna a modelagem de fluxos de trabalho complexos e processos de negócio muito mais intuitiva. Porém isso gera maior acoplamento, pois o servidor e cliente devem estar em sincronia
+
+Já as implicações do REST focam na padronização e no estado: a operação de cancelamento é tratada como uma alteração de propriedade do objeto (como mudar o status para cancelado), o que aproveita a infraestrutura nativa do HTTP para cache e escalabilidade. Essa abordagem gera menos acoplamento por utilizar metodos mais universais, mas pode tornar processos puramente funcionais ou abstratos mais difíceis de modelar por terem que seguir uma estrutura rígida de substantivos e URIs
