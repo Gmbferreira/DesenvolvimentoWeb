@@ -44,3 +44,14 @@ Para ser realmente stateless, o estado dos recursos deve ser movido da memória 
 
 ### 3.3
 A abordagem usada para  requests.post("/calculos", json={...}) deixa mais claro o contato entre cliente e servidor que proxy.calcular("soma", 7, 3). Isso acontece porque no RPC, o contrato é implícito e depende de nomes de funções arbitrários que ocultam a natureza da comunicação. No REST, a semântica é universal, sendo o uso de métodos padrão e códigos de estado, como 201 ou 404, o que torna a interação autodescritiva e independente da implementação interna do servidor.
+
+## Questão 4.
+### 4.1
+A principal diferença é que o contrato explícito do gRPC garante tipagem forte e validação automática, enquanto o REST depende de convenções e documentação externa que o código pode ignorar. Caso o servidor altero os campos, acontece uma quebra de compatibilidade binária.
+
+### 4.2
+São equivalentes. O gRPC é semanticamente mais rico, possuindo 16 status específicos contra o genérico HTTP 400. Enquanto o REST exige o parsing manual do corpo do erro, o gRPC transporta metadados tipados e legíveis por máquina nativamente no cabeçalho da resposta.
+
+### 4.3
+O xml.client.Fault limita-se a um par básico de texto (code/string), exigindo análise manual de strings para entender erros complexos. O grpc.RpcError oferece códigos de status específicos e metadados binários tipados que o cliente processa programaticamente. 
+Isso faz com que o grpc.Error provenha mais informações.
